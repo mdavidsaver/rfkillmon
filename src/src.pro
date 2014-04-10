@@ -13,12 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    tray.cpp \
-    rfeventsource.cpp
+    tray.cpp
 
 HEADERS  += \
-    tray.h \
-    rfeventsource.h
+    tray.h
 
 FORMS    +=
 

@@ -21,24 +21,40 @@
 #include <QSystemTrayIcon>
 #include <QMenu>
 
-#include "rfeventsource.h"
+struct rfState {
+    quint32 idx;
+    QString name;
+    enum Type {
+        Wifi=1, Blue=2
+    } type;
+    enum State {
+        Open, Soft, Hard
+    } state;
+};
+
+typedef QMap<quint32, rfState> rfStates;
 
 class Tray : public QObject
 {
     Q_OBJECT
 public:
     explicit Tray(QObject *parent = 0);
-    
-public slots:
-    void updateState(rfStatesPtr);
-    void showError(QString);
+    virtual ~Tray();
 
 private slots:
-    void shutdown();
+    void readEvents();
 private:
     QSystemTrayIcon systray;
 
-    rfEventSource evtsrc;
+    int devfd;
+
+    rfStates current;
+
+    void updateState();
+
+    QMap<quint32, QString> names; // cache of interface names
+
+    QString fetchName(quint32 idx);
 };
 
 #endif // TRAY_H
