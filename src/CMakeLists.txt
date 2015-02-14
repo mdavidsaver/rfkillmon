@@ -22,15 +22,9 @@ add_executable(rfkilltray
 )
 qt4_use_modules(rfkilltray Core Gui DBus)
 
-qt4_generate_dbus_interface(tray.h foo.rfkill.xml
-  OPTIONS -A
-)
-
-add_custom_target(dbusxml ALL DEPENDS foo.rfkill.xml)
-
 install(TARGETS rfkilltray
   RUNTIME DESTINATION bin
 )
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/foo.rfkill.xml
-  DESTINATION share/dbus-1/interfaces
-)
+#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/foo.rfkill.xml
+#  DESTINATION share/dbus-1/interfaces
+#)
