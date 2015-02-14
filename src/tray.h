@@ -20,6 +20,10 @@
 #include <QObject>
 #include <QSystemTrayIcon>
 #include <QMenu>
+#include <QtDBus/QDBusAbstractAdaptor>
+#include <QtDBus/QDBusObjectPath>
+
+class Tray;
 
 struct rfState {
     quint32 idx;
@@ -32,6 +36,32 @@ struct rfState {
     } state;
 };
 
+class RFAdapters : public QDBusAbstractAdaptor
+{
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "foo.rfkill")
+//    Q_CLASSINFO("D-Bus Introspection", ""
+//    "  <interface name=\"foo.rfkill\">\n"
+//    "    <method name=\"adapters\">\n"
+//    "      <arg direction=\"out\" type=\"ao\" name=\"names\"/>\n"
+//    "    </method>\n"
+//    "    <signal name=\"adaptersChanged\"/>\n"
+//    "  </interface>\n"
+//            "")
+public:
+    RFAdapters(Tray*);
+    virtual ~RFAdapters();
+
+public slots:
+    QList<QDBusObjectPath> adapters();
+
+signals:
+    void adaptersChanged();
+
+private:
+    Tray *self;
+};
+
 typedef QMap<quint32, rfState> rfStates;
 
 class Tray : public QObject
@@ -41,9 +71,10 @@ public:
     explicit Tray(QObject *parent = 0);
     virtual ~Tray();
 
-private slots:
+public slots:
     void readEvents();
-private:
+
+public:
     QSystemTrayIcon systray;
 
     int devfd;
@@ -55,6 +86,8 @@ private:
     QMap<quint32, QString> names; // cache of interface names
 
     QString fetchName(quint32 idx);
+
+    RFAdapters adaptersProxy;
 };
 
 #endif // TRAY_H

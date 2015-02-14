@@ -31,13 +31,18 @@
 #include <QSocketNotifier>
 #include <QFile>
 #include <QDebug>
+#include <QtDBus/QDBusConnection>
 
 #define DEVRFKILL "/dev/rfkill"
+
+//#define BUS() QDBusConnection::systemBus()
+#define BUS() QDBusConnection::sessionBus()
 
 Tray::Tray(QObject *parent) :
     QObject(parent)
   ,systray(this)
   ,current()
+  ,adaptersProxy(this)
 {
     QMenu *menu = new QMenu;
 
@@ -69,11 +74,20 @@ Tray::Tray(QObject *parent) :
         throw std::logic_error("Some signals not connected in Tray!");
 
     systray.show();
+
+    if(BUS().registerService("foo.rfkill")) {
+        qDebug("Setup DBus server");
+        if(!BUS().registerObject("/rfkill", this))
+            qWarning("Failed to register dbus object");
+    } else
+        qWarning("Failed to register dbus service");
 }
 
 Tray::~Tray()
 {
     ::close(devfd);
+    BUS().unregisterObject("/rfkill");
+    BUS().unregisterService("foo.rfkill");
 }
 
 static const char * const rfstates[3] = {

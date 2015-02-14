@@ -1,0 +1,10 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="foo.rfkill">
+    <method name="adapters">
+      <arg name="names" type="ao" direction="out"/>
+    </method>
+    <signal name="adaptersChanged"/>
+  </interface>
+</node>
