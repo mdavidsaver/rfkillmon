@@ -33,10 +33,14 @@ add_custom_target(dbusxmladapters ALL
 )
 
 install(TARGETS rfkilldaemon
-  RUNTIME DESTINATION bin
+  RUNTIME DESTINATION lib/rfkilltray
 )
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/foo.rfkill.service.xml
-  ${CMAKE_CURRENT_BINARY_DIR}/foo.rfkill.dbus.xml
+  ${CMAKE_CURRENT_BINARY_DIR}/foo.rfkill.device.xml
   DESTINATION share/dbus-1/interfaces
+)
+install(FILES
+  foo.rfkill.service
+  DESTINATION share/dbus-1/services
 )

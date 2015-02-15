@@ -148,6 +148,8 @@ void RFTray::onError()
 
     systray.setIcon(QIcon(":/icon/error.svg"));
     systray.setToolTip("Error");
+
+    qDebug()<<"Will retry";
 }
 
 void RFTray::setAdapter(QString name)

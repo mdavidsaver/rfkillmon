@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=rfkilltray
+Terminal=false
+Name=rfkilltray
+GenericName=RF Kill Switch Monitor
+Comment=System tray widget
+X-KDE-autostart-after=panel
+Categories=Qt;Utility;

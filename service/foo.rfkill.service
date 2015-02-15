@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=foo.rfkill.service
+Exec=/usr/lib/rfkilltray/rfkilldaemon

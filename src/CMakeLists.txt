@@ -30,3 +30,9 @@ qt4_use_modules(rfkilltray Core Gui DBus)
 install(TARGETS rfkilltray
   RUNTIME DESTINATION bin
 )
+install(FILES rfkilltray.desktop
+  DESTINATION share/autostart
+)
+install(FILES rfkilltray.desktop
+  DESTINATION share/applications
+)
