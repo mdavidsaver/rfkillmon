@@ -26,8 +26,17 @@ qt4_generate_dbus_interface(rfdevice.h foo.rfkill.device.xml
   OPTIONS -A
 )
 
-add_custom_target(dbusxml ALL
+add_custom_target(dbusxmladapters ALL
   DEPENDS
     foo.rfkill.service.xml
     foo.rfkill.device.xml
+)
+
+install(TARGETS rfkilldaemon
+  RUNTIME DESTINATION bin
+)
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/foo.rfkill.service.xml
+  ${CMAKE_CURRENT_BINARY_DIR}/foo.rfkill.dbus.xml
+  DESTINATION share/dbus-1/interfaces
 )

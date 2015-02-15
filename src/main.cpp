@@ -1,8 +1,9 @@
 #include <QApplication>
 #include <QSystemTrayIcon>
+#include <QtDBus/QDBusConnection>
 #include <QDebug>
 
-#include <tray.h>
+#include <rftray.h>
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +16,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    Tray tray;
+    RFTray tray(QDBusConnection::sessionBus());
 
     QApplication::setQuitOnLastWindowClosed(false);
     
