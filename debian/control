@@ -2,17 +2,17 @@ Source: rfkilltray
 Section: x11
 Priority: optional
 Maintainer: Michael Davidsaver <mdavidsaver@gmail.com>
-Build-Depends: debhelper (>= 7.0.50~),
+Build-Depends: debhelper (>= 9),
                libqt4-dev (>= 4.8), 
                cmake (>= 2.6),
-Standards-Version: 3.8.0
+Standards-Version: 3.9.4
 Homepage: https://github.com/mdavidsaver/rfkillmon
 Vcs-Browser: https://github.com/mdavidsaver/rfkillmon
 Vcs-Git: https://github.com/mdavidsaver/rfkillmon.git
 
 Package: rfkilltray
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depend},
+Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: Systray widget showing RF kill switch status
  System tray widget which shows the status of RF
  kill switches, typically wifi and bluetooth.
